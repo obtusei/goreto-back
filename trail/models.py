@@ -113,8 +113,8 @@ class Coordinate(models.Model):
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=255)
-    lat = models.FloatField()
-    lon = models.FloatField()
+    lat = models.CharField(max_length=255)
+    lon = models.CharField(max_length=255)
     point_name = models.CharField(
         max_length=20, choices=POINT_CHOICES, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)

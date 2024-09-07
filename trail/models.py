@@ -4,37 +4,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 
-class Coordinate(models.Model):
-    STARTING = 'Starting'
-    END = 'End'
-    CHECKPOINT = 'CheckPoint'
-    POINT_CHOICES = [
-        (STARTING, 'Starting'),
-        (END, 'End'),
-        (CHECKPOINT, 'CheckPoint')
-    ]
-
-    id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255)
-    lat = models.FloatField()
-    lon = models.FloatField()
-    point_name = models.CharField(
-        max_length=20, choices=POINT_CHOICES, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    last_modified = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return self.name
-
-
 class TravelMode(models.Model):
-    # WALKING = 'Walking'
-    # CYCLING = 'Cycling'
-    # MODE_CHOICES = [
-    #     (WALKING, 'Walking'),
-    #     (CYCLING, 'Cycling'),
-    # ]
-
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -96,7 +66,6 @@ class Trail(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     location_name = models.CharField(max_length=255, blank=True, null=True)
-    coordinates = models.ManyToManyField(Coordinate, blank=True)
     review = models.ManyToManyField(Review, blank=True)
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -131,3 +100,27 @@ class Place(models.Model):
 
     def __str__(self):
         return self.name
+    
+class Coordinate(models.Model):
+    STARTING = 'Starting'
+    END = 'End'
+    CHECKPOINT = 'CheckPoint'
+    POINT_CHOICES = [
+        (STARTING, 'Starting'),
+        (END, 'End'),
+        (CHECKPOINT, 'CheckPoint')
+    ]
+
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=255)
+    lat = models.FloatField()
+    lon = models.FloatField()
+    point_name = models.CharField(
+        max_length=20, choices=POINT_CHOICES, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+    trail = models.ForeignKey(Trail, on_delete=models.CASCADE, blank=True, null= True)
+
+    def __str__(self):
+        return self.name
+

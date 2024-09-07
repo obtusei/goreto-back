@@ -39,11 +39,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
+<<<<<<< HEAD
     'corsheaders',
+=======
+    'drf_yasg',
+>>>>>>> 4463b674138c700e049b5d18094e8631ca36730c
     'authentication',
     'trail',
     'hotel',
+    'user_profile',
     'navigation',
+    'services',
     'recommendation'
 ]
 
@@ -130,6 +136,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
 # Media files settings
 MEDIA_URL = '/media/'
@@ -152,3 +159,11 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'rajukarki467@gmail.com'
+EMAIL_HOST_PASSWORD = 'ecbw ybsm jsuv iblm'
+EMAIL_USE_SSL = False

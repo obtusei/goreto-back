@@ -1,5 +1,6 @@
 # myapp/views.py
 
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -7,6 +8,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from rest_framework.permissions import AllowAny
+
+from services.utils import send_email
+from services.models import Alert
 
 
 class RegisterView(APIView):
@@ -40,6 +44,21 @@ class LogoutView(APIView):
 
 class HelloWorld(APIView):
     def get(self, request):
+        alert = Alert.objects.get(pk=1)
+        result = send_email('ng4111894@gmail.com', alert)
+        return Response({'result': result}, status=status.HTTP_200_OK)
         if request.user.is_authenticated:
             return Response({"message": f"Hello, {request.user.username}"}, status=status.HTTP_200_OK)
         return Response({"message": "Hello, World"}, status=status.HTTP_200_OK)
+
+# views.py
+
+
+class SessionCheckView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        # Check if the user is authenticated
+        if not request.user.is_authenticated:
+            return Response({'isLogout': True}, status=status.HTTP_200_OK)
+        return Response({'isLogout': False}, status=status.HTTP_200_OK)

@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'authentication',
     'trail',
     'hotel',
-    'navigation',
+    'user_profile',
     'services'
 ]
 

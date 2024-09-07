@@ -13,6 +13,7 @@ urlpatterns = [
     path('api/', include('authentication.urls')),
     path('api/trail/', include('trail.urls')),
     path('api/hotel/', include('hotel.urls')),
+    path('api/recommend/',include('recommendation.urls')),
     path('docs/', schema_view),
 
 ]

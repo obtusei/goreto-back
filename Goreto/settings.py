@@ -38,8 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'rest_framework_swagger',
     'drf_yasg',
+    'rest_framework_swagger',
+    'corsheaders',
     'authentication',
     'trail',
     'hotel',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,6 +61,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# CORS_ALLOWED_ORIGINS = ['*'
+#                         ]
+
+# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
 ROOT_URLCONF = 'Goreto.urls'
 
 TEMPLATES = [
@@ -79,7 +86,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Goreto.wsgi.application'
 
-
+APPEND_SLASH = False
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -139,11 +146,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+        # 'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,
@@ -157,3 +164,8 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'rajukarki467@gmail.com'
 EMAIL_HOST_PASSWORD = 'ecbw ybsm jsuv iblm'
 EMAIL_USE_SSL = False
+
+
+CSRF_COOKIE_NAME = 'csrftoken'
+# Set to True if you want to make the CSRF cookie HTTP-only
+CSRF_COOKIE_HTTPONLY = False

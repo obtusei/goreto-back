@@ -28,8 +28,29 @@ class LoginView(APIView):
         form = AuthenticationForm(data=request.data)
         if form.is_valid():
             user = form.get_user()
-            login(request, user)
-            return Response({"message": "Logged in successfully"}, status=status.HTTP_200_OK)
+            login(request, user)  # Log the user in, creating a session
+
+            # Get session key
+            session_key = request.session.session_key
+
+            # Prepare user data
+            user_data = {
+                "username": user.username,
+                "email": user.email,
+                "first_name": user.first_name,
+                "last_name": user.last_name,
+            }
+
+            # Return session key and user information
+            return Response(
+                {
+                    "message": "Logged in successfully",
+                    "session_key": session_key,
+                    "user_info": user_data
+                },
+                status=status.HTTP_200_OK
+            )
+
         return Response({"error": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
 
 

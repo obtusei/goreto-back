@@ -39,11 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
-<<<<<<< HEAD
     'corsheaders',
-=======
-    'drf_yasg',
->>>>>>> 4463b674138c700e049b5d18094e8631ca36730c
     'authentication',
     'trail',
     'hotel',

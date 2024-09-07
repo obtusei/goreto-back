@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'authentication',
     'trail',
-    'hotel'
+    'hotel',
+    'navigation'
 ]
 
 MIDDLEWARE = [

@@ -1,8 +1,8 @@
-# views.py
-
 from rest_framework import viewsets
-from .models import Coordinate, TravelMode, Property, Fact, Review, Trail, TrailImage, Place
-from .serializers import CoordinateSerializer, TravelModeSerializer, PropertySerializer, FactSerializer, ReviewSerializer, TrailSerializer, TrailImageSerializer, PlaceSerializer
+from .models import Coordinate, TravelMode, Property, Fact, Review, Trail, TrailImage, Place, Landmark
+from .serializers import (CoordinateSerializer, TravelModeSerializer, PropertySerializer, 
+                          FactSerializer, ReviewSerializer, TrailSerializer, 
+                          TrailImageSerializer, PlaceSerializer, LandmarkSerializer)
 
 
 class CoordinateViewSet(viewsets.ModelViewSet):
@@ -55,3 +55,9 @@ class TrailViewSet(viewsets.ModelViewSet):
 class PlaceViewSet(viewsets.ModelViewSet):
     queryset = Place.objects.all()
     serializer_class = PlaceSerializer
+
+
+# Landmark ViewSet
+class LandmarkViewSet(viewsets.ModelViewSet):
+    queryset = Landmark.objects.all()
+    serializer_class = LandmarkSerializer

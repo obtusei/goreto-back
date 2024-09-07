@@ -1,6 +1,6 @@
 from django.contrib import admin
 from .models import (
-    Coordinate, TravelMode, Property, Fact, Review, Trail, TrailImage, Place
+    Coordinate, TravelMode, Property, Fact, Review, Trail, TrailImage, Place, Landmark
 )
 
 
@@ -59,6 +59,14 @@ class PlaceAdmin(admin.ModelAdmin):
     ordering = ('name',)
 
 
+# New LandmarkAdmin class
+class LandmarkAdmin(admin.ModelAdmin):
+    list_display = ('name', 'trail', 'coordinate', 'created_at', 'last_modified')
+    search_fields = ('name', 'trail__name', 'coordinate__name')
+    list_filter = ('trail', 'created_at')
+    ordering = ('-created_at',)
+
+
 # Register the models with their corresponding admin classes
 admin.site.register(Coordinate, CoordinateAdmin)
 admin.site.register(TravelMode, TravelModeAdmin)
@@ -66,6 +74,6 @@ admin.site.register(Property, PropertyAdmin)
 admin.site.register(Fact, FactAdmin)
 admin.site.register(Review, ReviewAdmin)
 admin.site.register(Trail, TrailAdmin)
-# TrailImage is registered directly as it is managed through inlines
-admin.site.register(TrailImage)
+admin.site.register(TrailImage)  # TrailImage is managed through inlines
 admin.site.register(Place, PlaceAdmin)
+admin.site.register(Landmark, LandmarkAdmin)  # Register Landmark with its custom admin class

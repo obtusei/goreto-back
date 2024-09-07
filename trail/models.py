@@ -101,6 +101,8 @@ class Place(models.Model):
     def __str__(self):
         return self.name
     
+
+    
 class Coordinate(models.Model):
     STARTING = 'Starting'
     END = 'End'
@@ -121,6 +123,17 @@ class Coordinate(models.Model):
     last_modified = models.DateTimeField(auto_now=True)
     trail = models.ForeignKey(Trail, on_delete=models.CASCADE, blank=True, null= True)
 
+    def __str__(self):
+        return self.name
+    
+class Landmark(models.Model):
+    name = models.CharField(max_length=255)
+    trail = models.ForeignKey(Trail, on_delete=models.CASCADE)
+    coordinate = models.ForeignKey(Coordinate, on_delete=models.CASCADE, related_name="landmark_coordinate")
+    image = models.ImageField(upload_to="landmark/", blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
+    
     def __str__(self):
         return self.name
 

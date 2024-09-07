@@ -1,7 +1,5 @@
-# serializers.py
-
 from rest_framework import serializers
-from .models import Coordinate, TravelMode, Property, Fact, Review, Trail, TrailImage, Place
+from .models import Coordinate, TravelMode, Property, Fact, Review, Trail, TrailImage, Place, Landmark
 
 
 class CoordinateSerializer(serializers.ModelSerializer):
@@ -55,3 +53,13 @@ class PlaceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Place
         fields = '__all__'
+
+
+# Landmark Serializer
+class LandmarkSerializer(serializers.ModelSerializer):
+    trail = TrailSerializer(read_only=True)  # Nested Trail serializer for read-only
+    coordinate = CoordinateSerializer(read_only=True)  # Nested Coordinate serializer for read-only
+
+    class Meta:
+        model = Landmark
+        fields = ['id', 'name', 'trail', 'coordinate', 'image', 'created_at', 'last_modified']

@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'authentication',
     'trail',
     'hotel',
-    'navigation'
+    'navigation',
+    'recommendation'
 ]
 
 MIDDLEWARE = [

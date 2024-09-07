@@ -1,6 +1,7 @@
 from django.db import models
 # Import User model from Django auth
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 
 class Coordinate(models.Model):
@@ -19,6 +20,8 @@ class Coordinate(models.Model):
     lon = models.FloatField()
     point_name = models.CharField(
         max_length=20, choices=POINT_CHOICES, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -34,6 +37,8 @@ class TravelMode(models.Model):
 
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=20)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -48,6 +53,8 @@ class Property(models.Model):
     accessibility = models.TextField(blank=True, null=True)
     mode = models.ForeignKey(
         TravelMode, on_delete=models.CASCADE, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"Property {self.id}"
@@ -57,6 +64,8 @@ class Fact(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField(blank=True, null=True)
     image = models.ImageField(upload_to='facts/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -76,6 +85,8 @@ class Review(models.Model):
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
     travel_mode = models.ForeignKey(
         TravelMode, on_delete=models.CASCADE,  blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.title
@@ -91,6 +102,8 @@ class Trail(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     # images = models.ImageField(upload_to='trails/', blank=True, null=True) #TODO: MAke multiple
     facts = models.ManyToManyField(Fact, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -100,6 +113,8 @@ class TrailImage(models.Model):
     trail = models.ForeignKey(
         Trail, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='trails/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"Image for {self.trail.name}"
@@ -111,6 +126,8 @@ class Place(models.Model):
     image = models.ImageField(upload_to='places/', blank=True, null=True)
     trails = models.ManyToManyField(Trail, blank=True)
     facts = models.ManyToManyField(Fact, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name

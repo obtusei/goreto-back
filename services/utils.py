@@ -15,43 +15,18 @@ import json
 # def send_otp(request):
 def send_email(receiver_email, issue):
     subject = "ISSUE REPORT"
-    message = f"""
-    <!DOCTYPE html>
-    <html lang="en">
-
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Issue Details</title>
-
-    </head>
-    <body>
-        <div class="container">
-            <h1>Issue Details</h1>
-            <div class="issue-card">
-                <h2>Issue Reported By { issue.user.username }</h2>
-                <p><strong>Coordinate:</strong> Latitude: { issue.latitude }  Longitude: { issue.longitude } </p>
-            <strong> Will be replaced by map UI </strong> 
-                <br/> <br/> 
-                <p><strong>Trail:</strong> { issue.trail.name }</p>
-                <p><strong>Problem Description:</strong></p>
-                <p>{ issue.problem }</p>
-                <p><strong>Reported At:</strong> { issue.created_at }</p>
-            </div>
-        </div>
-    </body>
-    </html>
-    """
     message_plain = f"""
-            Issue Reported By { issue.user.username }
+        There is a new alert that needs your attention:
 
-            Coordinate: Latitude: { issue.latitude }  Longitude: { issue.longitude } 
+        Issue Reported By { issue.user.username }
 
-            Trail: { issue.trail.name }
+        Coordinate: Latitude: { issue.latitude }  Longitude: { issue.longitude } 
 
-            Problem Description: { issue.problem }
-            
-            Reported At:  { issue.created_at }
+        Trail: { issue.trail.name }
+
+        Problem Description: { issue.problem }
+        
+        Reported At:  { issue.created_at }
     """
     sender = "rajukarki467@gmail.com"
     receivers = [receiver_email]
@@ -71,9 +46,9 @@ def send_email(receiver_email, issue):
         # Save OTP
         # Otp.objects.create(token=otp, userid=user, createdat=datetime.datetime.now())
         # return JsonResponse({'message':'Email sent'})
-        return 'Email Sent'
+        return {'isSuccess': True, 'message': 'Email Sent'}
 
-    return 'Failed to Sent'
+    return {'isSuccess': False, 'message': 'Failed to Send'}
 
     # return JsonResponse({'message':'OTP not Sent'},status=500)
 # send_email()

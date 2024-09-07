@@ -7,9 +7,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.middleware.csrf import get_token  # Import get_token
 
-from services.utils import send_email
-from services.models import Alert
-
 
 class RegisterView(APIView):
     permission_classes = [AllowAny]
@@ -67,9 +64,6 @@ class LogoutView(APIView):
 
 class HelloWorld(APIView):
     def get(self, request):
-        alert = Alert.objects.get(pk=1)
-        result = send_email('ng4111894@gmail.com', alert)
-        return Response({'result': result}, status=status.HTTP_200_OK)
         if request.user.is_authenticated:
             return Response({"message": f"Hello, {request.user.username}"}, status=status.HTTP_200_OK)
         return Response({"message": "Hello, World"}, status=status.HTTP_200_OK)

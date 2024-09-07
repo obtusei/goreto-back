@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-qhg6uvt!vjuh9hng9cp=l2l#96j&gc@)og0d&j9^eguwm*wq@a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['http://localhost:5173']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'drf-yasg',
+    'drf_yasg',
     'rest_framework_swagger',
     'corsheaders',
     'authentication',
@@ -61,11 +61,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:5173',
-]
+# CORS_ALLOWED_ORIGINS = ['*'
+#                         ]
 
-CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
 ROOT_URLCONF = 'Goreto.urls'
 
 TEMPLATES = [
@@ -86,7 +86,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Goreto.wsgi.application'
 
-APPEND_SLASH=False
+APPEND_SLASH = False
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
@@ -164,3 +164,8 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'rajukarki467@gmail.com'
 EMAIL_HOST_PASSWORD = 'ecbw ybsm jsuv iblm'
 EMAIL_USE_SSL = False
+
+
+CSRF_COOKIE_NAME = 'csrftoken'
+# Set to True if you want to make the CSRF cookie HTTP-only
+CSRF_COOKIE_HTTPONLY = False

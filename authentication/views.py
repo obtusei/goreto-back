@@ -1,5 +1,6 @@
 # myapp/views.py
 
+from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -49,3 +50,15 @@ class HelloWorld(APIView):
         if request.user.is_authenticated:
             return Response({"message": f"Hello, {request.user.username}"}, status=status.HTTP_200_OK)
         return Response({"message": "Hello, World"}, status=status.HTTP_200_OK)
+
+# views.py
+
+
+class SessionCheckView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        # Check if the user is authenticated
+        if not request.user.is_authenticated:
+            return Response({'isLogout': True}, status=status.HTTP_200_OK)
+        return Response({'isLogout': False}, status=status.HTTP_200_OK)

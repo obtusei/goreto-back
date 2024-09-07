@@ -39,10 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
+    'drf_yasg',
     'authentication',
     'trail',
     'hotel',
-    'navigation'
+    'navigation',
+    'services'
 ]
 
 MIDDLEWARE = [
@@ -145,3 +147,11 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'rajukarki467@gmail.com'
+EMAIL_HOST_PASSWORD = 'ecbw ybsm jsuv iblm'
+EMAIL_USE_SSL = False

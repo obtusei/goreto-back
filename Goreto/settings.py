@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-qhg6uvt!vjuh9hng9cp=l2l#96j&gc@)og0d&j9^eguwm*wq@a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+# ALLOWED_HOSTS = ['http://localhost:5173']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_swagger',
+    'corsheaders',
     'authentication',
     'trail',
     'hotel',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -56,6 +58,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+]
+
+CORS_ALLOW_CREDENTIALS = True
 ROOT_URLCONF = 'Goreto.urls'
 
 TEMPLATES = [
@@ -76,7 +83,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Goreto.wsgi.application'
 
-
+APPEND_SLASH=False
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 

@@ -1,13 +1,11 @@
-# myapp/views.py
-
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from rest_framework.permissions import AllowAny
+from django.middleware.csrf import get_token  # Import get_token
 
 from services.utils import send_email
 from services.models import Alert
@@ -36,6 +34,9 @@ class LoginView(APIView):
             # Get session key
             session_key = request.session.session_key
 
+            # Get CSRF token
+            csrf_token = get_token(request)  # Use get_token to retrieve CSRF token
+
             # Prepare user data
             user_data = {
                 "username": user.username,
@@ -44,11 +45,12 @@ class LoginView(APIView):
                 "last_name": user.last_name,
             }
 
-            # Return session key and user information
+            # Return session key, CSRF token, and user information
             return Response(
                 {
                     "message": "Logged in successfully",
                     "session_key": session_key,
+                    "csrf_token": csrf_token,
                     "user_info": user_data
                 },
                 status=status.HTTP_200_OK
@@ -71,8 +73,6 @@ class HelloWorld(APIView):
         if request.user.is_authenticated:
             return Response({"message": f"Hello, {request.user.username}"}, status=status.HTTP_200_OK)
         return Response({"message": "Hello, World"}, status=status.HTTP_200_OK)
-
-# views.py
 
 
 class SessionCheckView(APIView):

@@ -18,6 +18,8 @@ class Hotel(models.Model):
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE)  # Owner of the hotel
     coordinate =  models.ForeignKey(Coordinate,  on_delete=models.CASCADE, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
     def __str__(self):
         return self.name
 
@@ -26,6 +28,8 @@ class HotelImage(models.Model):
     hotel = models.ForeignKey(
         Hotel, related_name='images', on_delete=models.CASCADE)
     image = models.ImageField(upload_to='hotel_images/', blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"Image for {self.hotel.name}"
@@ -40,6 +44,8 @@ class RoomType(models.Model):
     capacity = models.PositiveIntegerField()
     price_per_night = models.DecimalField(max_digits=10, decimal_places=2)
     amenities = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.name} - {self.hotel.name}"

@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'trail',
     'hotel',
     'user_profile',
-    'services'
+    'navigation',
+    'services',
+    'recommendation'
 ]
 
 MIDDLEWARE = [

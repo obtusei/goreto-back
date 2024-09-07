@@ -33,6 +33,7 @@ urlpatterns = [
     path('api/trail/', include('trail.urls')),
     path('api/hotel/', include('hotel.urls')),
     path('api/users/', include('user_profile.urls')),
+    path('api/recommend/', include('recommendation.urls')),
     path('docs/', schema_view),
     path('swagger<format>/', schema_view_swagger.without_ui(cache_timeout=0),
          name='schema-json'),

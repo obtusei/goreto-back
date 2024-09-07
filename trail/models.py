@@ -25,15 +25,15 @@ class Coordinate(models.Model):
 
 
 class TravelMode(models.Model):
-    WALKING = 'Walking'
-    CYCLING = 'Cycling'
-    MODE_CHOICES = [
-        (WALKING, 'Walking'),
-        (CYCLING, 'Cycling'),
-    ]
+    # WALKING = 'Walking'
+    # CYCLING = 'Cycling'
+    # MODE_CHOICES = [
+    #     (WALKING, 'Walking'),
+    #     (CYCLING, 'Cycling'),
+    # ]
 
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=20, choices=MODE_CHOICES)
+    name = models.CharField(max_length=20)
 
     def __str__(self):
         return self.name
@@ -46,7 +46,8 @@ class Property(models.Model):
     temperature = models.CharField(max_length=50, blank=True, null=True)
     safety_info = models.TextField(blank=True, null=True)
     accessibility = models.TextField(blank=True, null=True)
-    mode = models.ManyToManyField(TravelMode, blank=True)
+    mode = models.ForeignKey(
+        TravelMode, on_delete=models.CASCADE, blank=True, null=True)
 
     def __str__(self):
         return f"Property {self.id}"
@@ -62,18 +63,19 @@ class Fact(models.Model):
 
 
 class Review(models.Model):
-    WALKING = 'Walking'
-    CYCLING = 'Cycling'
-    TRAVEL_MODE_CHOICES = [
-        (WALKING, 'Walking'),
-        (CYCLING, 'Cycling'),
-    ]
+    # WALKING = 'Walking'
+    # CYCLING = 'Cycling'
+    # TRAVEL_MODE_CHOICES = [
+    #     (WALKING, 'Walking'),
+    #     (CYCLING, 'Cycling'),
+    # ]
 
     title = models.CharField(max_length=255)
     description = models.TextField()
     reviewer = models.ForeignKey(User, on_delete=models.CASCADE)
     property = models.ForeignKey(Property, on_delete=models.CASCADE)
-    travel_mode = models.CharField(max_length=20, choices=TRAVEL_MODE_CHOICES)
+    travel_mode = models.ForeignKey(
+        TravelMode, on_delete=models.CASCADE,  blank=True, null=True)
 
     def __str__(self):
         return self.title
